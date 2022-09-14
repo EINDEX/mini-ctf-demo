@@ -6,7 +6,7 @@ import jwt
 import sqlite3
 import urllib
 
-
+token = open('/etc/token').read()
 
 with open('config.yaml') as f:
     config = yaml.load(f, yaml.Loader)
@@ -89,7 +89,7 @@ def me():
         username = data.get("username", "you")
         result = f"Welcome {username}!"
         if username == "admin":
-            result += "<br>Congratulations!! the token is '19c49cfb32d4a43c4e19e32cb0d2b4c1'!"
+            result += f"<br>Congratulations!! the token is '{token}'!"
         result += '<br><a href="/logout">Logout</a>'
         return result
     except Exception as e:
@@ -104,7 +104,3 @@ def file_path(req_path):
     with open(req_path, 'r') as f:
         return f.read().replace('\n', '<br>')
 
-
-"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.B_ej7DU2M0tah3XKHi8vhWBGqGyRj5I3BctaHubHDcY"
-'{"typ":"JWT","alg":"NONE"}'
-"eyJ0eXAiOiJKV1QiLCJhbGciOiJOT05FIn0.eyJ1c2VybmFtZSI6ImFkbWluIn0."

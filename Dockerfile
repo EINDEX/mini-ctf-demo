@@ -4,6 +4,9 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
+ARG token
+RUN echo ${token} > /etc/token
+
 COPY . .
 
 EXPOSE 5000
