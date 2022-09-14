@@ -16,7 +16,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        
       # setup Docker buld action
       - name: Set up Docker Buildx
         id: buildx
@@ -33,11 +36,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
+          plartforms: linux/amd64,linux/arm64,linux/arm/v7
           context: .
           # Note: tags has to be all lower-case
           tags: |
             ghcr.io/eindex/mini-ctf-demo:latest
           push: true
+          build-args: token=${{ secrets.TOKEN }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
