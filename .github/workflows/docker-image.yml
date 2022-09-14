@@ -31,16 +31,26 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
+          
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/eindex/mini-ctf-demo
+          tags: |
+            type=raw,value=latest
+            
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
-          plartforms: linux/amd64,linux/arm64,linux/arm/v7
+          plartforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           context: .
           # Note: tags has to be all lower-case
-          tags: |
-            ghcr.io/eindex/mini-ctf-demo:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           push: true
           build-args: token=${{ secrets.TOKEN }}
 
