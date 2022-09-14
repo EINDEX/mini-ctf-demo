@@ -1,0 +1,4 @@
+secret: "some random secret"
+admin:
+  username: admin
+  password: admin123
