@@ -23,4 +23,6 @@ then open this link
 
 This mini ctf have a lot of ways to get token.
 
-each way to get score is 1 point.
+Each way to get 1 point socre.
+
+Welcome show or discuss your CTF solution to issues.
